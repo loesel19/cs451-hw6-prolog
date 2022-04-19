@@ -1,4 +1,4 @@
-%problem1 FIN
+%problem1 FIN 'maybe add bang in base case
 isMember(X, [X | _]).
 isMember(X, [_| Tail]):-
     member(X, Tail).
@@ -23,7 +23,7 @@ prodVector([H | T], [H1 | T1], P) :-
     prodVector(T, T1, P1),
     X is H * H1,
     addElem(X, P1, P).
-%problem7
+%problem7 X
 unionList([],[],[]).
 unionList([], [H | T], U):-
     isMember(H, U) = false, !,
@@ -35,3 +35,33 @@ unionList([H | T], L, U):-
     print(L1),
     unionList(T, L1, U1),
     addElem(H, U1, U).
+
+%problem8 X
+dice(1).
+dice(2).
+dice(3).
+dice(4).
+dice(5).
+dice(6).
+getDices(0, 0, []).
+getDices(Sum, N, Res) :-
+    dice(X),
+    Sum > X, Sum > 0,
+    N1 is N - 1,
+    Sum1 is Sum - X,
+    addElem(X, Res, Res1),
+    getDices(Sum1, N1, Res1).
+%problem9 Fin
+max([H | T]) :- maxHelper(H, T).
+maxHelper(X, []) :- print(X), !.
+maxHelper(X, [H | T]):-
+    H > X, !,
+    maxHelper(H, T).
+maxHelper(X, [H | T]) :-
+    H < X,
+    maxHelper(X, T).
+%problem10 
+sumOfOthers([L]) :-
+    sumOHelp([L]).
+sumOHelp([H | T]) :-
+    
