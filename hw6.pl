@@ -52,16 +52,23 @@ getDices(Sum, N, Res) :-
     addElem(X, Res, Res1),
     getDices(Sum1, N1, Res1).
 %problem9 Fin
-max([H | T]) :- maxHelper(H, T).
-maxHelper(X, []) :- print(X), !.
-maxHelper(X, [H | T]):-
-    H > X, !,
-    maxHelper(H, T).
-maxHelper(X, [H | T]) :-
-    H < X,
-    maxHelper(X, T).
-%problem10 
+max([], Max):- print('base'),!, nl, Max = 0.
+max([H | T], Max):-
+    max(T, Max1),
+    H > Max1, !,
+    print('H > Max,   '), print(H), print(' : '), print(Max1),nl,
+    Max = H.
+max([H | T], Max):-
+    max(T, Max1),
+    print('Max > H,   '), print(Max1), print(' : '), print(H), nl,
+    Max = Max1.
+%problem10
 sumOfOthers([L]) :-
-    sumOHelp([L]).
-sumOHelp([H | T]) :-
+    max([L], Max),
+    sumOHelp([L], Max).
+sumOHelp([H | T], Max) :-
+    delElem(Max, [H | T], L),
+    sumList(L, Sum),
+    Sum = Max.
+sumList([H | T], Sum):-
     
